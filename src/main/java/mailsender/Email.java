@@ -23,16 +23,15 @@ public class Email {
 	private String remetente = "";
 	private String assunto = "";
 	private String mensagem = "";
-	
+
 	public Email(String destinatarios, String remetente, String assunto, String mensagem) {
-		super();
 		this.destinatarios = destinatarios;
 		this.remetente = remetente;
 		this.assunto = assunto;
 		this.mensagem = mensagem;
 	}
 
-	public void enviarEmail() {
+	public void enviarEmail(boolean envioHtml) {
 
 		try {
 
@@ -59,12 +58,17 @@ public class Email {
 			message.setFrom(new InternetAddress(userName, remetente));
 			message.setRecipients(Message.RecipientType.TO, toUsers);
 			message.setSubject(assunto);
-			message.setText(mensagem);
 
+			if (envioHtml) {
+				message.setContent(mensagem, "text/html; charset=utf-8");
+			} else {
+				message.setText(mensagem);
+			}
 			Transport.send(message);
-
+			System.out.println("Email enviado com sucesso!");
 		} catch (Exception e) {
 			e.printStackTrace();
+			System.out.println("Falha ao enviar o email");
 		}
 	}
 
