@@ -11,6 +11,6 @@ public class Executar {
 		
 		Email email = new Email("mauricio.sponton.testes@gmail.com, mauricio.sponton.testes@outlook.com", "DEV",
 				"Teste de envio de email", builder.toString());
-		email.enviarEmail(true);
+		email.enviarEmail(true, true);
 	}
 }
